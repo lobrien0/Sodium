@@ -34,6 +34,7 @@ python manage.py <shadow_file> <password_file>
 > `python3`, `py`, `py3`
 
 --  
+
 Example with the provided testing resources:
 
 ```bash
