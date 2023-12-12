@@ -10,7 +10,7 @@ This program doesn't write anything, so the `shadow` file won't be edited. Just 
 
 ## Steps for testing
 
-1. In order to test this, first open the `shadow` file you'd like to use.you can use something like `vim` or `nano` with superuser
+1. In order to test this, first open the `shadow` file you'd like to use. You can use something like `vim` or `nano` with superuser
 
    ```bash
    sudo vim /etc/shadow
@@ -18,7 +18,7 @@ This program doesn't write anything, so the `shadow` file won't be edited. Just 
 
    --
 
-2. Once you have the `shadow` file open, make sure that the default account (your account) doesn't have `$y$` after the account name. If it does have `$y$` after your accounts name, then go to `Yes-Crypt Work around`
+2. Once you have the `shadow` file open, make sure that the default account (your account) doesn't have `$y$` after the account name. If it does have `$y$` after your account name, then go to `Yes-Crypt Workaround`
 
    example of what it would look like:
 
@@ -29,7 +29,7 @@ This program doesn't write anything, so the `shadow` file won't be edited. Just 
 
    --
 
-3. After closing the shadow file, we must create a test account in order to preform the testing.  
+3. After closing the shadow file, we must create a test account in order to perform the testing.  
    To do this, please enter the following command:
 
    ```bash
@@ -38,16 +38,16 @@ This program doesn't write anything, so the `shadow` file won't be edited. Just 
 
    --
 
-4. Now that the `alice` account is made, we have to set alice's password.  
+4. Now that the `alice` account is made, we must set Alice's password.  
    To do that, please enter this command:
 
    ```bash
    sudo passwd alice
    ```
 
-   > Note: If you're shadow file had `$y$` in it, please go to `Yes-Crypt Work Around` instead of running this command
+   > Note: If your shadow file had `$y$` in it, please go to `Yes-Crypt Work Around` instead of running this command
 
-   For testing, make sure to set the password to something in your password list, or in the provided `top100k.txt`.  
+   For testing, set the password to something in your password list, or the provided `top100k.txt`.  
    Normally this list represents the passwords being checked against in a breach.
 
    --
@@ -60,11 +60,11 @@ This program doesn't write anything, so the `shadow` file won't be edited. Just 
    sudo python manage.py /etc/shadow top100k.txt alice
    ```
 
-   > If you want to use you're own password list, replace `top100k.txt` with the path to your own list.
+   > If you want to use your password list, replace `top100k.txt` with the path to your own list.
 
    > `sudo` is used since `shadow` is protected
    > 
-   > If you would prefer not enter the `shadow` file directly, you can create a copy of the `shadow` file and use the path to the copy instead
+   > If you would prefer not to enter the `shadow` file directly, you can create a copy of the `shadow` file and use the path to the copy instead
 
    the command above will start the program in debugging mode and only compute the user `alice` (to save time)
 
@@ -72,7 +72,7 @@ This program doesn't write anything, so the `shadow` file won't be edited. Just 
 
 ## Yes-Crypt Work Around
 
-If you're user's hash had `$y$` in it, this means your system uses a hashing algorithm called `Yes-Crypt`. Which this program is not designed to handle (yet).
+If your user's hash had `$y$` in it, this means your system uses a hashing algorithm called `Yes-Crypt`. Which this program is not designed to handle (yet).
 
 In order to get around this, you must manually create the password for the `alice` account.
 
@@ -103,9 +103,9 @@ In order to get around this, you must manually create the password for the `alic
    ```bash
    sudo usermod --password $(openssl passwd -6 'Password') alice
    ```
-   > `Password` can be changed to what ever you'd like it to be.
+   > `Password` can be changed to whatever you'd like it to be.
 
-   OpenSSL allows us to compute a SHA-512 hash for alice manually since the system defaults to `Yes-Crypt`
+   OpenSSL allows us to compute a SHA-512 hash for Alice manually since the system defaults to `Yes-Crypt`
 
    --
 
