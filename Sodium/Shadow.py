@@ -39,18 +39,26 @@ class shadow_pattern:
         self.date_expire:int = None
         
         if line != None: 
-            self.parse(line)
+            if self.parse(line):
+                print(f'[X] Parse Failed on {self.name}. Skipping...\n')
         
     
     # Parser
-    def parse(self, line:str):
+    def parse(self, line:str) -> int:
         # splitting text by ":"
         temp_list:list = line.split(':')
         self.name = temp_list[0]
         
         # If there is a hash
         hash:str = temp_list[1]
+        
+        # Parses and sets the Hash values
         if len(hash) >= 6:
+            
+            # Checks to ensure YesCrypt is not used
+            if hash[1] in ['Y', 'y']:
+                return -1
+            
             salt_index = hash.index('$', 3)
             self.hash_type = hash[1]
             self.salt = hash[3:salt_index]
@@ -69,11 +77,14 @@ class shadow_pattern:
             self.pass_inactive = int(temp_list[6])
         if len(temp_list[7]) > 0:
             self.date_expire = int(temp_list[7])
+            
+        return 0
     
     # Getter function
     def get(self) -> str:
         return f'${self.hash_type}${self.salt}${self.hash}'
     
+    # Returns true if account is password protected
     def protected(self) -> bool:
         if self.hash != None:
             return True
